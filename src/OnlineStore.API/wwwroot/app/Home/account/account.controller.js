@@ -107,7 +107,10 @@
         '$scope', '$http','$state', function ($scope, $http, $state) {
 			$scope.logo = 'http://localhost:58969/images/shop.jpg';
 			$scope.loading = false;
-			
+			$scope.Save = function () {
+			    $scope.loading = true;
+
+			}
         }
     ])
 })();

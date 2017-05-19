@@ -26,16 +26,21 @@
                         <label for="fullName" class="control-label">Description</label>
                         <textarea rows="2" name="description" id="description" class="form-control" ng-model="shop.Description" placeholder="Description" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error': formStore.address.$dirty && formStore.address.$error.required }">
                         <label for="fullName" class="control-label">Address</label>
-                        <textarea rows="2" name="address" id="address" class="form-control" ng-model="shop.Address" placeholder="Address" />
+                        <textarea rows="2" name="address" id="address" class="form-control" ng-model="shop.Address" placeholder="Address" required />
+                        <span ng-show="formStore.address.$dirty && formStore.address.$error.required" class="help-block">Address is required</span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error': formStore.postal.$dirty && formStore.postal.$error.required }">
                         <label for="fullName" class="control-label">Postal Code</label>
-                        <input type="text" name="postal" id="postal" class="form-control" ng-model="shop.PostalCode" placeholder="Postal Code" />  
+                        <input type="text" name="postal" id="postal" class="form-control" ng-model="shop.PostalCode" placeholder="Postal Code" required />  
+                        <span ng-show="formStore.postal.$dirty && formStore.postal.$error.required" class="help-block">Postal Code is required</span>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save">Save</i> </button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="formStore.$invalid ||loading">
+                            <span ng-hide="loading"><i class="fa fa-save"></i> Save</span>
+                            <span ng-show="loading"><i class="fa fa-spinner"></i> Saving...</span>
+                        </button>
                     </div>
                 </form>
             </div>
