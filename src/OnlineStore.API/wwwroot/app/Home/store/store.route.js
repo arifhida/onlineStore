@@ -7,8 +7,7 @@
     angular.module('app').config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider.state('store', {
             url: "/store",
-            templateUrl: "app/Home/store/index.html",
-            controller: 'storeCtrl'            
+            templateUrl: "app/Home/store/index.html"                   
         });
     });
 })();

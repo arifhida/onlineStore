@@ -24,6 +24,7 @@ namespace OnlineStore.Model.Entities
         public long BrandId { get; set; }
         public Brand Brand { get; set; }
         public decimal Weight { get; set; }
+        public bool isAvailable { get; set; }
         public ICollection<ProductImage> Image { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
     }

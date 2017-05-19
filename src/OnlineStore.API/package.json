@@ -19,6 +19,7 @@
     "angular-ui-tree": "2.22.5",
     "admin-lte": "2.3.11",
     "slimscroll": "0.9.1",
-    "ng-table": "3.0.1"
+    "ng-table": "3.0.1",
+    "angular-confirm1": "1.1.0"
   }
 }

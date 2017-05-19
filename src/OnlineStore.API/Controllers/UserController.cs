@@ -136,7 +136,7 @@ namespace OnlineStore.API.Controllers
             var identity = (ClaimsIdentity)User.Identity;
             IEnumerable<Claim> claims = identity.Claims;
             var username = claims.Where(c => c.Type == "Username").FirstOrDefault().Value;
-            var _user = await _userRepository.GetSingleAsync(x => x.UserName == username);
+            var _user = await _userRepository.GetSingleAsync(x => x.UserName == username, x => x.Store);
             if (_user == null)
             {
                 return new NotFoundResult();

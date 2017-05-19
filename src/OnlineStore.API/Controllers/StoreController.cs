@@ -167,6 +167,7 @@ namespace OnlineStore.API.Controllers
             var json = JsonConvert.SerializeObject(result, _serializerSettings);
             return new OkObjectResult(json);
         }
+
         public IActionResult Index()
         {
             return View();

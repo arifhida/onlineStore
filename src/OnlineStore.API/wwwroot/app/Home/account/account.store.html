@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <form name="formStore" role="form">
+                <form name="formStore" role="form" ng-submit="Save()">
                     <div class="form-group" ng-class="{ 'has-error': (formStore.storename.$dirty && formStore.storename.$error.required) || formStore.storename.$error.storeexist}">
                         <label for="fullName" class="control-label">Shop Name</label>
                         <input type="text" name="storename" id="storename" class="form-control" ng-model="shop.StoreName" store-exist required placeholder="Shop Name" />

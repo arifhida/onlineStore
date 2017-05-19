@@ -49,7 +49,7 @@ namespace OnlineStore.Data
             modelBuilder.Entity<Customer>().Property(e => e.CreatedDate).ForNpgsqlHasDefaultValueSql("current_timestamp").ValueGeneratedOnAdd();
             modelBuilder.Entity<Customer>().Property(e => e.ModifiedDate).ForNpgsqlHasDefaultValueSql("current_timestamp").ValueGeneratedOnAddOrUpdate();
             modelBuilder.Entity<Customer>().Property(e => e.isActive).ForNpgsqlHasDefaultValue(true);
-            modelBuilder.Entity<Customer>().HasOne(e => e.User).WithOne(r => r.customer)
+            modelBuilder.Entity<Customer>().HasOne(e => e.User).WithOne(r => r.Customer)
                 .HasForeignKey<Customer>(r => r.UserId);
             modelBuilder.Entity<Customer>().Ignore(e => e.Delete);
 
@@ -101,7 +101,7 @@ namespace OnlineStore.Data
             modelBuilder.Entity<Store>().Property(e => e.ModifiedDate).ForNpgsqlHasDefaultValueSql("current_timestamp").ValueGeneratedOnAddOrUpdate();
             modelBuilder.Entity<Store>().Property(e => e.isActive).ForNpgsqlHasDefaultValue(true);
             modelBuilder.Entity<Store>().Property(e => e.PostalCode).HasMaxLength(10);
-            modelBuilder.Entity<Store>().HasOne(u => u.User).WithOne(r => r.store)
+            modelBuilder.Entity<Store>().HasOne(u => u.User).WithOne(r => r.Store)
                 .HasForeignKey<Store>(x => x.UserId);
             modelBuilder.Entity<Store>().Ignore(e => e.Delete);
 

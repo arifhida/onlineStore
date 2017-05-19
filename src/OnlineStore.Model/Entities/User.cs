@@ -18,8 +18,8 @@ namespace OnlineStore.Model.Entities
         public string Salt { get; set; }
         public Gender Gender { get; set; }
         public DateTime BirthDate { get; set; }
-        public Store store { get; set; }
-        public Customer customer { get; set; }
+        public Store Store { get; set; }
+        public Customer Customer { get; set; }
         public string Photo { get; set; }
         public string Confirmation { get; set; }
         public bool isConfirmed { get; set; }

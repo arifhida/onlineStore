@@ -104,12 +104,29 @@
 
         }
     ]).controller('accountStoreCtrl', [
-        '$scope', '$http','$state', function ($scope, $http, $state) {
+        '$scope', '$http', '$state', '$ngConfirm', function ($scope, $http, $state,$ngConfirm) {
 			$scope.logo = 'http://localhost:58969/images/shop.jpg';
 			$scope.loading = false;
 			$scope.Save = function () {
 			    $scope.loading = true;
-
+			    $scope.shop.StoreLogo = $scope.logo;			   
+			    $http.post('api/Store/Save', $scope.shop, { headers: { 'Content-Type': 'application/json' } })
+                    .then(function (response) {
+                        $ngConfirm({
+                            title: 'Success',
+                            content: '<strong>{{shop.StoreName}}</strong> Created',
+                            scope: $scope,                            
+                            buttons: {
+                                OK: function (scope, button) {
+                                    scope.redirect();
+                                }
+                            }
+                        });
+                    });
+			    console.log($scope.shop);
+			}
+			$scope.redirect = function () {
+			    $state.go('store');
 			}
         }
     ])
