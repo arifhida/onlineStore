@@ -1,0 +1,53 @@
+﻿<section class="content-header">
+    <h1>
+        Store List
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-shopping-basket"></i> Home</a></li>
+        <li class="active">Store</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title"><a class="btn btn-primary" ui-sref="newrole"><i class="fa fa-plus"></i> Add</a></h3>
+                    <div class="box-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" ng-model="q" class="form-control pull-right" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="getData();"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Store name</th>
+                                <th>Motto</th>
+                                <th>Description</th>
+                                <th>Address</th>
+                                <th>Owner</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="store in storeList">
+                                <td>{{ $index + (page*pageSize) + 1 }}</td>
+                                <td>{{ StoreName }}</td>
+                                <td>{{ Motto }}</td>
+                                <td>{{ Description }}</td>
+                                <td>{{ Address }}</td>
+                                <td>{{ UserName }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

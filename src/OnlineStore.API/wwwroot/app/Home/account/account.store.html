@@ -1,0 +1,44 @@
+﻿<div ng-class="{ 'text-center alert': error, 'alert-success': status === 200, 'alert-danger': status !== 200 }" ng-if="error" ng-bind="error">{{error}}</div>
+<div class="panel panel-warning">
+    <div class="panel-body">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <div class="row">
+                    <label for="store" class="control-label">Store Logo</label>
+                    <img ng-src="{{logo}}" class="img-responsive img-thumbnail" />
+                </div>
+                <div class="form-group">
+                    <input type="file" class="form-control" file-upload="logo" file-url="api/Store/PostLogo" ng-disabled="status === 401" />
+                </div>
+            </div>
+            <div class="col-md-8">
+                <form name="formStore" role="form">
+                    <div class="form-group" ng-class="{ 'has-error': (formStore.storename.$dirty && formStore.storename.$error.required) || formStore.storename.$error.storeexist}">
+                        <label for="fullName" class="control-label">Shop Name</label>
+                        <input type="text" name="storename" id="storename" class="form-control" ng-model="shop.StoreName" store-exist required placeholder="Shop Name" />
+                        <span ng-show="formStore.storename.$dirty && formStore.storename.$error.required" class="help-block">Shop Name is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName" class="control-label">Slogan</label>
+                        <input type="text" name="motto" id="motto" class="form-control" ng-model="shop.Motto" placeholder="Shop Slogan" />                        
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName" class="control-label">Description</label>
+                        <textarea rows="2" name="description" id="description" class="form-control" ng-model="shop.Description" placeholder="Description" />
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName" class="control-label">Address</label>
+                        <textarea rows="2" name="address" id="address" class="form-control" ng-model="shop.Address" placeholder="Address" />
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName" class="control-label">Postal Code</label>
+                        <input type="text" name="postal" id="postal" class="form-control" ng-model="shop.PostalCode" placeholder="Postal Code" />  
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save">Save</i> </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

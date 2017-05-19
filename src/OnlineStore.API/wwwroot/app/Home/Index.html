@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="/" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Store App</title>
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/styles/animate.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/prettyPhoto.css">
+    <link rel="stylesheet" href="/styles/price-range.css">
+    <link rel="stylesheet" href="/styles/responsive.css">
+    <link rel="stylesheet" href="/styles/Site.css">    
+    <link rel="stylesheet" href="/lib-npm/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib-npm/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/lib-npm/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib-npm/angular-ui-tree/angular-ui-tree.min.css">
+    <!-- endinject -->
+</head>
+<body ng-app="app">
+    <header id="header">
+        <div class="header_top">
+            <!--header_top-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="contactinfo">
+                            <ul class="nav nav-pills">
+                                <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
+                                <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="social-icons pull-right">
+                            <ul class="nav navbar-nav">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header_top-->
+
+        <div class="header-middle">
+            <!--header-middle-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="logo pull-left">
+                            <a ui-sref="main"><img src="images/logo.png" alt="" /></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="shop-menu pull-right" ng-controller="ActNavCtrl">
+                            <ul class="nav navbar-nav">
+                                <li ng-show="isAuthenticated()"><a ui-sref="account.profile"><i class="fa fa-user"></i> Account</a></li>
+                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+                                <li ng-hide="isAuthenticated()"><a ui-sref="login"><i class="fa fa-lock"></i> Login</a></li>
+                                <li ng-show="isAuthenticated()"><a href="#" ng-click="logout()"><i class="fa fa-sign-out"></i> logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-middle-->
+        <div class="header-bottom">
+            <!--header-bottom-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="mainmenu pull-left">
+                            <ul class="nav navbar-nav collapse navbar-collapse">
+                                <li><a ui-sref="main" class="active">Home</a></li>                                
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="search_box pull-right">
+                            <input type="text" placeholder="Search" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="container">
+            <div class="row" ui-view>
+                
+            </div>
+        </div>
+    </section>    
+    <!-- inject:js -->
+    <script src="/lib-npm/jquery/jquery.js"></script>
+    <script src="/lib-npm/jquery/jquery.min.js"></script>
+    <script src="/lib-npm/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/lib-npm/angular/angular.min.js"></script>
+    <script src="/lib-npm/angular-ui-router.js"></script>
+    <script src="/lib-npm/angular-ui-router.min.js"></script>
+    <script src="/lib-npm/angular-local-storage/angular-local-storage.min.js"></script>
+    <script src="/lib-npm/angular-ui-tree/angular-ui-tree.min.js"></script>
+    <script src="/scripts/app-price-range.js"></script>
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/jquery.prettyPhoto.js"></script>
+    <script src="/scripts/jquery.scrollUp.min.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/service/authInterceptor.js"></script>
+    <script src="/scripts/service/AuthServices.js"></script>
+    <script src="/scripts/service/global.directive.js"></script>
+    <script src="/app/Home/login/login.directive.js"></script>
+    <script src="/app/Home/account/account.directive.js"></script>
+    <script src="/app/Home/index.controller.js"></script>
+    <script src="/app/Home/account/account.controller.js"></script>
+    <script src="/app/Home/login/login.controller.js"></script>
+    <script src="/app/Home/main/main.controller.js"></script>
+    <script src="/app/Home/Index.route.js"></script>
+    <script src="/app/Home/account/account.route.js"></script>
+    <script src="/app/Home/login/login.route.js"></script>
+    <script src="/app/Home/main/main.route.js"></script>
+    <!-- endinject -->
+
+</body>
+
+</html>

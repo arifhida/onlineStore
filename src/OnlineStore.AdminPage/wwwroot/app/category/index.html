@@ -1,0 +1,91 @@
+﻿<section class="content-header">
+    <h1>
+        Category
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+        <li class="active">Category</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title"><button type="button" class="btn btn-primary" ng-click="addRoot()"><i class="fa fa-plus"></i> Add</button></h3>
+                    <div class="box-tools">
+
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div ui-tree id="tree-root">
+                        <ol ui-tree-nodes ng-model="data">
+                            <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="box-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade in" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <form class="form-horizontal" name="frmCat" ng-submit="Save(cat)">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{{cat.CategoryName}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="form-group has-feedback" ng-class="{ 'has-error': frmCat.catname.$dirty && frmCat.catname.$error.required }">
+                            <label for="catname">Name</label>
+                            <input type="text" class="form-control" ng-model="cat.CategoryName" placeholder="category name" name="catname" id="catname" required />
+                            <span class="form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback" ng-class="{ 'has-error': frmCat.catdesc.$dirty && frmCat.catdesc.$error.required }">
+                            <label for="catdesc">Description</label>
+                            <input type="text" class="form-control" ng-model="cat.CategoryDescription" placeholder="category description" name="catdesc" id="catdesc" required />
+                            <span class="form-control-feedback"></span>
+                        </div>
+                        <input type="hidden" ng-model="cat.ParentId" />
+                        <input type="hidden" ng-model="cat.Id" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reset()">Close</button>
+                    <button type="submit" id="btnSave" ng-disabled="frmCat.$invalid ||loading" class="btn btn-primary"><i class="fa fa-spinner fa-spin" ng-show="loading"></i> Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div ui-tree-handle style="padding:5px;" class="tree-node tree-node-content">
+        <a class="btn btn-success btn-xs" ng-if="node.Children && node.Children.length > 0" data-nodrag ng-click="toggle(this)">
+            <span class="fa"
+                  ng-class="{
+          'fa-chevron-right': collapsed,
+          'fa-chevron-down': !collapsed
+        }"></span>
+        </a>
+        <button class="btn btn-primary btn-xs disabled" ng-if="!node.Children || node.Children.length == 0">
+            <i class="fa fa-minus"></i>
+        </button>
+        {{node.CategoryName}}
+        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="del(this,node.Id)">
+            <span class="fa fa-remove"></span>
+        </a>
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="addItem(this,node.Id)" style="margin-right: 8px;">
+            <span class="fa fa-plus"></span>
+        </a>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.Children" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.Children" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ol>
+</script>

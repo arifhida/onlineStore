@@ -1,0 +1,36 @@
+﻿<div ng-class="{ 'text-center alert': error, 'alert-success': status === 200, 'alert-danger': status != 200 }" ng-if="error" ng-bind="error"></div>
+<section class="content-header">
+    <h1>
+        Role
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-cog"></i> Home</a></li>
+        <li class="active">Role</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box">
+                <form name="form" role="form" ng-submit="Save()">
+                    <div class="box-body">
+                        <div class="form-group" ng-class="{ 'has-error': (form.rolename.$dirty && form.rolename.$error.required) || (form.rolename.$dirty && form.rolename.$error.roleExist) }">
+                            <label for="rolename">Role Name</label>
+                            <input type="text" class="form-control" role-exist name="rolename" ng-model="data.RoleName" placeholder="Enter role name" required />
+                            <span ng-show="form.rolename.$dirty && form.rolename.$error.required" class="help-block">Role Name is required</span>
+                            <span ng-show="form.rolename.$dirty && form.rolename.$error.roleExist" class="help-block">Role Name is exist</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea name="description" class="form-control" placeholder="role description" ng-model="data.Description" maxlength="256">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" id="btnSubmit" ng-disabled="form.$invalid ||loading" class="btn btn-primary"><i class="fa fa-spinner fa-spin" ng-show="loading"></i>Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

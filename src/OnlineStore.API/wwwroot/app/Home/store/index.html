@@ -1,0 +1,37 @@
+﻿<div class="col-sm-3">
+    <div class="left-sidebar">
+        <div class="panel-group category-products" id="accordian">
+            <div class="panel panel-primary">
+                <div id="profile" class="panel-body">
+                    <div class="col-md-12">
+                        <img src="../../../images/user.png" class="col-md-6" />
+                        <span class="col-md-6 profile">{{User.FullName}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>Store</h2>
+                    <div class="col-md-12">
+                        <span class="alert">You have no shop</span>
+                        <a class="btn btn-block btn-primary" ui-sref="account.store"><i class="fa fa-shopping-basket"></i> Create new Store</a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>My Profile</h2>
+                    <div class="brands-name">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a ui-sref="account.profile">Setting</a></li>
+                            <li><a ui-sref="account.purchasing">My purchasing</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-9 padding-right" ui-view>
+
+</div>

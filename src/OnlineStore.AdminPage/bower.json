@@ -1,0 +1,7 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "angular1-confirm": "1.1.0"
+  }
+}

@@ -1,0 +1,117 @@
+﻿<div ng-class="{ 'text-center alert': error, 'alert-success': status === 200, 'alert-danger': status !== 200 }" ng-if="error" ng-bind="error">{{error}}</div>
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
+    <li role="presentation"><a href="#tab-address" data-toggle="tab">Address</a></li>
+</ul>
+<div class="tab-content clearfix">
+    <div class="tab-pane active" id="tab-profile">
+        <div class="panel panel-warning">
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <img ng-src="{{profile}}" class="img-responsive img-thumbnail" />
+                        </div>
+                        <div class="form-group">
+                            <input type="file" class="form-control" file-upload="profile" file-url="api/Customer/PostImage" ng-disabled="status === 401" />
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <form name="formProfile" class="form-horizontal" ng-submit="Save()" role="form">
+                            <h4>Update Profile</h4>
+                            <div class="form-group" ng-class="{ 'has-error': formProfile.fullName.$dirty && formProfile.fullName.$error.required }">
+                                <label for="fullName" class="control-label col-md-4">Full Name</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="fullName" id="fullName" class="form-control" ng-model="User.FullName" required placeholder="Full Name" />
+                                    <span ng-show="formProfile.fullName.$dirty && formProfile.fullName.$error.required" class="help-block">Full Name is required</span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error': formProfile.birthdate.$dirty && formProfile.birthdate.$error.required }">
+                                <label for="birthdate" class="control-label col-md-4">Birthdate</label>
+                                <div class="col-md-8">
+                                    <input type="date" name="birthdate" id="birthdate" class="form-control" ng-model="User.BirthDate" required placeholder="Birthdate" />
+                                    <span ng-show="formProfile.birthdate.$dirty && formProfile.birthdate.$error.required" class="help-block">Birthdate is required</span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error': formProfile.gender.$dirty && formProfile.gender.$error.required }">
+                                <label for="gender" class="control-label col-md-4">Gender</label>
+                                <div class="col-md-8">
+                                    <select ng-model="User.Gender" name="gender" class="form-control"
+                                            ng-options="c.Id as c.Name for c in Gender" required>
+                                        <option value="">--Select Gender--</option>
+                                    </select>
+                                    <span ng-show="formProfile.gender.$dirty && formProfile.gender.$error.required" class="help-block">Gender is required</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="control-label col-md-4">Email</label>
+                                <div class="col-md-8">
+                                    <label class="form-control">{{User.Email}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-8">
+                                    <button type="submit" class="btn btn-primary" ng-disabled="formProfile.$invalid ||loading || status === 401">
+                                        <i class="fa fa-spinner fa-spin" ng-show="loading"> </i> <span class="label" ng-show="loading">Saving...</span>
+                                        <i class="fa fa-save" ng-hide="loading"> Save</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="tab-address">
+        <div class="panel panel-warning">
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <form name="frmAddress" role="form" ng-submit="SaveAddress()">
+                        <h4>Update Address</h4>
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{ 'has-error': frmAddress.address.$dirty && frmAddress.address.$error.required }">   
+                                <label for="Address" class="control-label">Address</label>                            
+                                <textarea class="form-control" name="address"rows="7" ng-model="cust.Address" ng-maxlength="550" 
+                                          placeholder="Address" required></textarea>
+                                <input type="hidden" ng-model="cust.Id"/>
+                                <span ng-show="frmAddress.address.$dirty && frmAddress.address.$error.required" class="help-block">Address is required</span>
+                            </div>                            
+                        </div>
+                        <div class="col-md-6">                           
+                            <div class="form-group col-md-6" ng-class="{ 'has-error': frmAddress.province.$dirty && frmAddress.province.$error.required }">
+                                <label for="province" class="control-label">Province</label>
+                                <input type="text" name="province" ng-model="cust.Province" class="form-control" required />
+                                <span ng-show="frmAddress.province.$dirty && frmAddress.province.$error.required" class="help-block">Province is required</span>
+                            </div>
+                            <div class="form-group col-md-6" ng-class="{ 'has-error': frmAddress.city.$dirty && frmAddress.city.$error.required }">
+                                <label for="city" class="control-label">City</label>
+                                <input type="text" name="city" ng-model="cust.City" class="form-control" required />
+                                <span ng-show="frmAddress.city.$dirty && frmAddress.city.$error.required" class="help-block">City is required</span>
+                            </div>
+                            <div class="form-group col-md-6" ng-class="{ 'has-error': frmAddress.district.$dirty && frmAddress.district.$error.required }">
+                                <label for="district" class="control-label">District</label>
+                                <input type="text" name="district" ng-model="cust.District" class="form-control" required />
+                                <span ng-show="frmAddress.district.$dirty && frmAddress.district.$error.required" class="help-block">District is required</span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="postal" class="control-label">Postal Code</label>
+                                <input type="text" name="postal" ng-model="cust.PostalCode" class="form-control" />
+                            </div> 
+                            <div class="form-group col-md-6" ng-class="{ 'has-error': frmAddress.phone.$dirty && frmAddress.phone.$error.required }">
+                                <input type="text" name="phone" ng-model="cust.Phone" class="form-control" placeholder="Phone No." required />
+                                <span ng-show="frmAddress.phone.$dirty && frmAddress.phone.$error.required" class="help-block">Phone is required</span>
+                            </div>                          
+                        </div>    
+                        <div class="form-actions col-md-12">
+                            <button type="submit" class="btn btn-primary" ng-disabled="frmAddress.$invalid ||loading || status === 401"><i class="fa fa-save"> Save</i></button>
+                        </div>                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

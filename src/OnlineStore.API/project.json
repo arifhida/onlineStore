@@ -1,0 +1,73 @@
+{
+  "userSecretsId": "CoreIdentity",
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.1.0",
+      "type": "platform"
+    },
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0",
+    "Microsoft.AspNetCore.Mvc": "1.0.1",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.1.0",
+    "Microsoft.Extensions.Configuration.FileExtensions": "1.1.0",
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
+    "Microsoft.Extensions.Configuration.CommandLine": "1.0.0",
+    "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
+    "Microsoft.Extensions.Logging.Console": "1.0.0",
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0",
+    "Npgsql.EntityFrameworkCore.PostgreSQL": "1.1.0",
+    "Microsoft.EntityFrameworkCore": "1.1.0",
+    "Microsoft.EntityFrameworkCore.Design": "1.1.0",
+    "Microsoft.EntityFrameworkCore.Tools.DotNet": "1.1.0-preview4-final",
+    "Microsoft.Extensions.Configuration.UserSecrets": "1.1.0",
+    "Microsoft.AspNetCore.StaticFiles": "1.1.0",
+    "Microsoft.IdentityModel.Tokens": "5.1.2",
+    "Microsoft.Extensions.Options": "1.1.0",
+    "Microsoft.AspNetCore.Authorization": "1.1.0",
+    "System.IdentityModel.Tokens.Jwt": "5.1.2",
+    "FluentValidation": "7.0.0-beta2",
+    "AutoMapper.Data": "1.0.0-beta1",
+    "Microsoft.AspNetCore.Authentication.JwtBearer": "1.1.0",
+    "OnlineStore.Model": "1.0.0-*",
+    "OnlineStore.Data": "1.0.0-*",
+    "Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
+    "NETCore.MailKit": "1.0.1"
+  },
+
+  "tools": {
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final",
+    "Microsoft.EntityFrameworkCore.Tools.DotNet": "1.1.0-preview4-final"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "portable-net45+win8"
+      ]
+    }
+  },
+
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true
+  },
+
+  "runtimeOptions": {
+    "configProperties": {
+      "System.GC.Server": true
+    }
+  },
+
+  "publishOptions": {
+    "include": [
+      "wwwroot",
+      "web.config"
+    ]
+  },
+
+  "scripts": {
+    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
+  }
+}

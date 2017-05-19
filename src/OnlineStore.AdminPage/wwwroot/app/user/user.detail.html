@@ -1,0 +1,58 @@
+﻿<div ng-class="{ 'text-center alert': error, 'alert-success': status === 200, 'alert-danger': status != 200 }" ng-if="error" ng-bind="error"></div>
+<section class="content-header">
+    <h1>
+        User Detail
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-users"></i> Home</a></li>
+        <li class="active">User</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <form name="form" role="form" ng-submit="Save()">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{data.UserName}}</h3>
+                        <input type="hidden" ng-model="data.Id"/>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" name="email" ng-model="data.Email" placeholder="Enter email" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="Fullname">Full Name</label>
+                            <input type="text" class="form-control" name="Fullname" ng-model="data.FullName" placeholder="Enter full name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="birthdate">Birthdate</label>
+                            <input type="date" class="form-control" ng-model="data.BirthDate" name="birthdate" placeholder="Enter Birthdate" required />                           
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select ng-model="data.Gender" name="gender" class="form-control"
+                                    ng-options="c.Id as c.Name for c in Gender" required>
+                                <option value="">--Select Gender--</option>
+                            </select>                         
+                        </div>
+                        <div class="form-group">
+                            <label for="Chk">Roles</label>
+                            <div ng-repeat="role in roles" class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-click="change(role)" ng-checked="checked(role.Id,data.Roles)" > {{ role.RoleName}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-spinner fa-spin" ng-show="loading"></i> Save
+                        </button>
+                    </div>
+                </form>
+            </div>           
+        </div>
+    </div>
+</section>
