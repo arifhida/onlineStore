@@ -61,7 +61,7 @@ namespace OnlineStore.API.Controllers
             var q = Request.Headers["q"].ToString();
             int currentPage = page;
             int currentPageSize = pageSize;
-            var data = await _storeRepository.FindByAsync(x => x.StoreName == q || x.Motto == q || x.User.UserName == q || x.Address == q);
+            var data = await _storeRepository.FindByAsyncIncluding(x => x.StoreName == q || x.Motto.Contains(q) || x.User.UserName.Contains(q) || x.Address.Contains(q),x=> x.User);
             var totalData = data.Count();
             var totalPages = (int)Math.Ceiling((double)totalData / pageSize);
             Response.AddPagination(page, pageSize, totalData, totalPages);
@@ -108,6 +108,18 @@ namespace OnlineStore.API.Controllers
             return new NoContentResult();
         }
 
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetById(long Id)
+        {
+            var data = await _storeRepository.GetSingleAsync(x => x.Id == Id, x => x.User);
+            if (data == null)
+            {
+                return new NotFoundResult();
+            }
+            var _result = Mapper.Map<User, UserViewModel>(data.User);
+            var json = JsonConvert.SerializeObject(_result, _serializerSettings);
+            return new OkObjectResult(json);
+        }
 
         [HttpDelete("{Id}")]
         public async Task<IActionResult> Delete(long Id)
@@ -166,6 +178,23 @@ namespace OnlineStore.API.Controllers
             };
             var json = JsonConvert.SerializeObject(result, _serializerSettings);
             return new OkObjectResult(json);
+        }
+
+        [HttpGet("Current")]
+        public async Task<IActionResult> Current()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var username = claims.Where(c => c.Type == "Username").FirstOrDefault().Value;
+            var _user = await _userRepository.GetSingleAsync(x => x.UserName == username, y => y.Store);
+            if (_user == null)
+            {
+                return new BadRequestResult();
+            }
+            var _store = Mapper.Map<Store, StoreViewModel>(_user.Store);
+            var json = JsonConvert.SerializeObject(_store, _serializerSettings);
+            return new OkObjectResult(json);
+
         }
 
         public IActionResult Index()

@@ -1,0 +1,103 @@
+﻿<div ng-class="{ 'text-center alert': error, 'alert-success': status === 200, 'alert-danger': status !== 200 }" ng-if="error" ng-bind="error">{{error}}</div>
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <h4>Add New Product</h4>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12">
+            <form name="form" role="form" ng-submit="Save()">
+                <div class="form-group col-md-4">
+                    <label for="sku">SKU</label>
+                    <input type="text" class="form-control" ng-model="product.SKU" store-id="StoreId" skuexist name="sku" required />
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="category">Category</label>
+                    <input type="text" class="form-control"name="query" ng-model="query" ng-change="findNodes()" />
+                    <input type="hidden" ng-model="product.CategoryId" />
+                    <div class="suggestion" style="padding:5px;" ng-show="autocomplete">
+                        <div ui-tree id="tree-root">
+                            <ul ui-tree-nodes ng-model="categoryList">
+                                <li ng-repeat="node in categoryList" ui-tree-node ng-include="'nodes_renderer.html'" ng-show="visible(node)"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="brand">Brand</label>
+                    <select class="form-control" ng-model="product.BrandId"
+                            ng-options="c.Id as c.BrandName for c in brandList" required>
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="productname">Product Name</label>
+                    <input type="text" class="form-control" name="productname" ng-model="product.ProductName" />
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" name="description" ng-model="product.ProductDescription"></textarea>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="price">Unit Price</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">Rp.</span>
+                        <input type="number" step="any" class="form-control" name="price" ng-model="product.UnitPrice" />
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="weigth">Weight</label>
+                    <div class="input-group">
+                        <input type="number" step="any" class="form-control" name="weight" ng-model="product.Weight" />
+                        <span class="input-group-addon">KG</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="condition">Condition</label>
+                    <select class="form-control" ng-model="product.Condition" name="condition"
+                            ng-options="c.Id as c.Name for c in condition" required>
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="available">Is Avaliable</label>
+                    <select class="form-control" ng-model="product.isAvailable" name="available"
+                            ng-options="c.Id as c.Name for c in Availability" required>
+                        <option value="">--Select--</option>
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <label for="picture">Upload picture</label>
+                    <input type="file" class="form-control" file-multi="images" file-url="api/Product/PostImage" multiple />
+                </div>
+                <div class="com-md-12">
+                    <div class="col-md-4" ng-repeat="image in images">
+                        <img class="img-responsive img-thumbnail" ng-src="{{image.ImageUrl}}" />
+                        <button type="button" class="btn btn-block btn-danger" ng-click="remove(image)"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>        
+    </div>
+</div>
+
+<script type="text/ng-template" id="nodes_renderer.html">
+    <a class="btn btn-success btn-xs" ng-if="node.Children && node.Children.length > 0" data-nodrag ng-click="toggle(this)">
+        <span class="fa"
+              ng-class="{
+          'fa-chevron-right': collapsed,
+          'fa-chevron-down': !collapsed
+        }"></span>
+    </a>
+    <button class="btn btn-primary btn-xs disabled" ng-if="!node.Children || node.Children.length == 0">
+        <i class="fa fa-minus"></i>
+    </button>
+    <a ng-click="setCategory(node)" href="#" ng-if="!node.Children || node.Children.length == 0">{{node.CategoryName}}</a>
+    <a href="#" ng-if="node.Children && node.Children.length > 0">{{node.CategoryName}}</a>
+    <ul ui-tree-nodes="" ng-model="node.Children" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.Children" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ul>
+</script>

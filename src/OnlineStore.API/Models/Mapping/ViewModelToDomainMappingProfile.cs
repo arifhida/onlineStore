@@ -22,6 +22,8 @@ namespace OnlineStore.API.Models.Mapping
             Mapper.CreateMap<BrandViewModel, Brand>();
             Mapper.CreateMap<StoreViewModel, Store>();
             Mapper.CreateMap<CustomerViewModel, Customer>();
+            Mapper.CreateMap<ProductViewModel, Product>();
+            Mapper.CreateMap<ProductImageViewModel, ProductImage>();
         }
     }
 }

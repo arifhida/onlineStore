@@ -22,5 +22,17 @@
             $scope.getData();
 
 
-        }]);
+        }]).controller('newbrandCtrl', [
+            '$scope', '$http', '$state', function ($scope, $http, $state) {
+                $scope.loading = false;
+
+                $scope.Save = function () {
+                    $scope.loading = false;
+                    $http.post('http://localhost:58969/api/Brand/AddBrand', $scope.data, { headers: { 'Content-Type': 'application/json' } })
+                        .then(function (response) {
+                            $state.go('brand');
+                        });
+                }
+            }
+        ]);
 })();

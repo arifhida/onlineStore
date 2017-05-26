@@ -1,0 +1,80 @@
+﻿<div ng-class="{ 'text-center alert': error, 'alert-success': status === 200, 'alert-danger': status != 200 }" ng-if="error" ng-bind="error"></div>
+<section class="content-header">
+    <h1>
+        Store Detail
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-shopping-basket"></i> Home</a></li>
+        <li class="active">Store</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <form name="form" role="form">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{data.StoreName}}</h3>
+                        <input type="hidden" ng-model="data.Id" />
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="shopname">Shop Name</label>
+                            <input type="text" class="form-control" name="shopname" ng-model="data.StoreName" placeholder="Enter Shop Name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="motto">Slogan</label>
+                            <input type="text" class="form-control" name="motto" ng-model="data.Motto" placeholder="Enter Slogan" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="motto">Description</label>
+                            <textarea class="form-control" name="description" ng-model="data.Description" placeholder="Enter Store Description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="motto">Address</label>
+                            <textarea class="form-control" name="address" ng-model="data.Address" placeholder="Enter Address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="motto">Postal Code</label>
+                            <input type="text" class="form-control" name="motto" ng-model="data.PostalCode" placeholder="Enter Postal Code" required />
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Owner's Info</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="shopname">Full Name</label>
+                        <label class="form-control">{{user.FullName}}</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="shopname">User Name</label>
+                        <label class="form-control">{{user.UserName}}</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="shopname">Email</label>
+                        <label class="form-control">{{user.Email}}</label>
+                    </div>
+                </div>
+            </div>   
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Shop Logo</h3>                    
+                </div>
+                <div class="box-body">
+                    <img ng-src="{{data.StoreLogo}}" class="img-responsive img-thumbnail" />
+                </div>
+                <div class="box-footer">                    
+                </div>
+            </div>                     
+        </div>
+    </div>
+</section>

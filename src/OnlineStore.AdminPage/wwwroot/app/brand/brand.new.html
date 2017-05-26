@@ -1,0 +1,50 @@
+﻿<div ng-class="{ 'text-center alert': error, 'alert-success': status === 200, 'alert-danger': status != 200 }" ng-if="error" ng-bind="error"></div>
+<section class="content-header">
+    <h1>
+        New User
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-users"></i> Home</a></li>
+        <li class="active">User</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <form name="form" role="form" ng-submit="Save()">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">{{data.BrandName}}</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group" ng-class="{ 'has-error': form.brandname.$dirty && form.brandname.$error.required }">
+                            <label for="brandname">Brand Name</label>
+                            <input type="text" class="form-control" name="brandname" ng-model="data.BrandName" placeholder="Enter Brand name" required />
+                            <span ng-show="form.brandname.$dirty && form.brandname.$error.required" class="help-block">Brand Name is required</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" name="description" ng-model="data.Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <span ng-hide="loading"><i class="fa fa-save"></i> Save</span>
+                            <span ng-show="loading"><i class="fa fa-spinner fa-spin" ng-show="loading"></i> Saving..</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="logo">Logo</label>
+                <input type="file" name="logo" class="form-control"
+                       file-upload="data.Logo" file-url="http://localhost:58969/api/Brand/PostLogo" />
+            </div>
+            <div class="col-md-12">
+                <img class="img-responsive img-thumbnail" ng-src="{{data.Logo}}" />
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,40 @@
+﻿<div id="cart_items">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <a ui-sref="store.productNew" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
+            </div>
+        </div>        
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td>Description</td>
+                        <td>Price</td>
+                        <td>Availabe</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="product in productList">
+                        <td>
+                            <a href=""><img ng-src="{{product.Image[0].ImageUrl}}" alt=""></a>
+                        </td>
+                        <td>
+                            <h4><a href="">{{product.ProductName}}</a></h4>
+                            <p>SKU : {{product.SKU}}</p>
+                        </td>
+                        <td>
+                            <p>{{product.UnitPrice}}</p>
+                        </td>
+                        <td>
+                            <p>{{ product.isAvailable }}</p>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>    
+</div>

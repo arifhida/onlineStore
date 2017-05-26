@@ -4,7 +4,7 @@
             <div class="panel panel-primary">                
                 <div id="profile" class="panel-body">       
                     <div class="col-md-12">
-                        <img src="../../../images/user.png" class="col-md-6" />
+                        <img ng-src="{{User.Photo}}" class="img-responsive img-thumbnail" />                        
                         <span class="col-md-6 profile">{{User.FullName}}</span>
                     </div>                                   
                 </div>
@@ -12,13 +12,13 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h2>Store</h2>
-                    <div class="col-md-12" ng-show="user.Store === null">
+                    <div class="col-md-12" ng-show="User.Store === null">
                         <span class="alert">You have no shop</span>
                         <a class="btn btn-block btn-primary" ui-sref="account.store"><i class="fa fa-shopping-basket"></i> Create new Store</a>
                     </div>
-                    <div class="col-md-12" ng-hide="user.Store === null">
+                    <div class="col-md-12" ng-hide="User.Store === null">
                         <span class="alert">Manage your Store</span>
-                        <a class="btn btn-block btn-primary" ui-sref="store"><i class="fa fa-shopping-basket"></i> {{user.Store.StoreName}}</a>
+                        <a class="btn btn-block btn-primary" ui-sref="store.profile"><i class="fa fa-shopping-basket"></i> {{ User.Store.StoreName }}</a>
                     </div>
                 </div>
             </div>

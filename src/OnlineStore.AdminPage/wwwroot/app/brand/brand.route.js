@@ -8,6 +8,10 @@
             url: '/brand',
             templateUrl: 'app/brand/index.html',
             controller: 'brandCtrl'
+        }).state('newbrand', {
+            url: '/brand/new',
+            templateUrl: 'app/brand/brand.new.html',
+            controller: 'newbrandCtrl'
         });
     });
 })();

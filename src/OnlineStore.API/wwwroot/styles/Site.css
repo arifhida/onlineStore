@@ -9,3 +9,13 @@
     position: relative;
     z-index: 3;
 }
+.suggestion {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    border-bottom: 1px solid #888;
+    z-index: 1000;
+    background-color:#fff;
+}

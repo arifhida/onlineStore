@@ -31,13 +31,19 @@ var paths = {
     adminltejs: webroot + 'lib-npm/admin-lte/js/app.js',
     adminltecss: webroot + 'lib-npm/admin-lte/css/**/*.min.css',
     uitreejs: webroot + 'lib-npm/angular-ui-tree/*.min.js',
-    uitreecss: webroot + 'lib-npm/angular-ui-tree/*.min.css'
+    uitreecss: webroot + 'lib-npm/angular-ui-tree/*.min.css',
+    ngConfirmCss: webroot + 'lib-npm/confirm1/*.min.css',
+    ngConfirmJs: webroot + 'lib-npm/confirm1/*.min.js'
 };
 var ngroutepath = "./node_modules/";
 var libnpmPath = webroot + 'lib-npm/';
 gulp.task('copy-angular-route', function () {
     gulp.src(ngroutepath + 'angular-ui-router/release/*.js')
         .pipe(gulp.dest(libnpmPath));
+});
+gulp.task('copy-ngConfirm', function () {
+    gulp.src(ngroutepath + 'angular-confirm1/dist/**.*')
+    .pipe(gulp.dest(libnpmPath + 'confirm1/'));
 });
 gulp.task('copy-ngTable', function () {
     gulp.src(ngroutepath + 'ng-table/bundles/*.*')
@@ -93,13 +99,15 @@ gulp.task('inject:Index', function () {
     var uitreejsSrc = gulp.src(paths.uitreejs, { read: false });
     var uitreecssSrc = gulp.src(paths.uitreecss, { read: false });
     var ngDirectiveSrc = gulp.src(paths.ngDirective, { read: false });
+    var ngConfirmCssSrc = gulp.src(paths.ngConfirmCss, { read: false });
+    var ngConfirmJsSrc = gulp.src(paths.ngConfirmJs, { read: false });
     gulp.src(webroot + 'app/Index.html')
         .pipe(wiredep({
             optional: 'configuration',
             goes: 'here',
             ignorePath: '..'
         }))
-        .pipe(inject(series(jquerySrc, bootjsSrc, slimSrc, adminlteSrc, ngSrc, npmSrc, ngStorage,ngTableJsSrc, uitreejsSrc, scriptSrc, ngDirectiveSrc, moduleSrc, controllerSrc, routeSrc), { ignorePath: '/wwwroot' }))
-        .pipe(inject(series(styleSrc, bootstrapcssSrc, faSrc, adminCssSrc, uitreecssSrc, ngTableCssSrc), { ignorePath: '/wwwroot' }))
+        .pipe(inject(series(jquerySrc, bootjsSrc, slimSrc, adminlteSrc, ngSrc, npmSrc, ngStorage, ngTableJsSrc, uitreejsSrc, ngConfirmJsSrc, scriptSrc, ngDirectiveSrc, moduleSrc, controllerSrc, routeSrc), { ignorePath: '/wwwroot' }))
+        .pipe(inject(series(styleSrc, bootstrapcssSrc, faSrc, adminCssSrc, uitreecssSrc, ngTableCssSrc, ngConfirmCssSrc), { ignorePath: '/wwwroot' }))
         .pipe(gulp.dest(webroot + 'app'));
 });

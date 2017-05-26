@@ -74,7 +74,7 @@ namespace OnlineStore.API.Controllers
         public async Task<IActionResult> Get()
         {
             var data = await _categoryRepository.FindByAsync(x => x.isActive == true);
-            var result = Mapper.Map<IEnumerable<Category>, IEnumerable<CategoryViewModel>>(data);
+            var result = Mapper.Map<IEnumerable<Category>, IEnumerable<CategoryViewModel>>(data.Where(x=> x.ParentId == null));
             var json = JsonConvert.SerializeObject(result, _serializerSettings);
             return new OkObjectResult(json);
         }

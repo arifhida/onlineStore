@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Online Store App</title>
     <!-- bower:css -->
-    <link rel="stylesheet" href="/lib/angular1-confirm/css/angular-confirm.css" />
     <!-- endbower -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/styles/Site.css">    
@@ -17,6 +16,7 @@
     <link rel="stylesheet" href="/lib-npm/admin-lte/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="/lib-npm/angular-ui-tree/angular-ui-tree.min.css">
     <link rel="stylesheet" href="/lib-npm/ng-table/ng-table.min.css">
+    <link rel="stylesheet" href="/lib-npm/confirm1/angular-confirm.min.css">
     <!-- endinject -->
 </head>
 <body ng-app="app" class="hold-transition skin-blue fixed sidebar-mini">
@@ -68,7 +68,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a ui-sref="store"><i class="fa fa-shopping-bag"></i> Store</a></li>
+                            <li><a ui-sref="store"><i class="fa fa-shopping-bag"></i>Manage Store</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
@@ -100,14 +100,14 @@
     <script src="/lib-npm/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="/lib-npm/admin-lte/js/app.js"></script>
     <script src="/lib-npm/angular/angular.min.js"></script>
-    <script src="/lib/angular1-confirm/js/angular-confirm.js"></script>
     <script src="/lib-npm/angular-ui-router.js"></script>
     <script src="/lib-npm/angular-ui-router.min.js"></script>
     <script src="/lib-npm/checklist-model.js"></script>
     <script src="/lib-npm/angular-local-storage/angular-local-storage.min.js"></script>
     <script src="/lib-npm/ng-table/ng-table.min.js"></script>
     <script src="/lib-npm/angular-ui-tree/angular-ui-tree.min.js"></script>
-    <script src="/lib-npm/angular-jwt/angular-jwt.js"></script>
+    <script src="/lib-npm/confirm1/angular-confirm.min.js"></script>
+    <script src="/lib-npm/angular-jwt/angular-jwt.min.js"></script>
     <script src="/scripts/app.js"></script>
     <script src="/scripts/service/authInterceptor.js"></script>
     <script src="/scripts/service/AuthServices.js"></script>
@@ -119,6 +119,7 @@
     <script src="/app/login/login.controller.js"></script>
     <script src="/app/main/main.controller.js"></script>
     <script src="/app/role/role.controller.js"></script>
+    <script src="/app/store/store.controller.js"></script>
     <script src="/app/user/user.controller.js"></script>
     <script src="/app/Index.route.js"></script>
     <script src="/app/brand/brand.route.js"></script>
@@ -128,7 +129,7 @@
     <script src="/app/store/store.route.js"></script>
     <script src="/app/user/user.route.js"></script>
     <!-- endinject -->
-    <!-- bower:js -->        
+    <!-- bower:js -->
     <!-- endbower -->
 </body>
 </html>

@@ -41,6 +41,7 @@
             ];
             $scope.getUser();
             $scope.Save = function () {
+                $scope.User.Photo = $scope.profile;
                 $scope.loading = true;
                 $http.post('api/Customer/UpdateProfile', $scope.User, { headers: { 'Content-Type': 'application/json' } })
                     .then(function (response) {
@@ -70,9 +71,7 @@
                             $scope.cust = response.data;
                         } else {
                             $scope.cust = angular.copy($scope.address);
-                        }
-                        console.log(response.data);
-                        console.log($scope.cust);
+                        }                        
                     }, function (err) {
                         $scope.cust = angular.copy($scope.address);
                     });

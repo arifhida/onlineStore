@@ -35,7 +35,7 @@
                             action: function (scope, button) {
                                 $http.delete('http://localhost:58969/api/User/' + user.Id)
                                     .then(function (response) {
-                                        $scope.getData();
+                                        scope.getData();
                                     }, function (error) {
                                         $ngConfirm('Data not found');
                                     });

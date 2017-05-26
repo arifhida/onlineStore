@@ -9,6 +9,10 @@ using OnlineStore.API.Options;
 using AutoMapper;
 using OnlineStore.Model.Entities;
 using OnlineStore.API.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Options;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,15 +25,19 @@ namespace OnlineStore.API.Controllers
         private IProductRepository _productRepository;
         private IBrandRepository _brandRepository;
         private ICategoryRepository _categoryRepository;
+        private readonly appSettings _appSettings;
+        private IHostingEnvironment _environment;
         private readonly JsonSerializerSettings _serializerSettings;
 
         public BrandController(IProductImageRepository productImageRepository, IProductRepository productRepository,
-            IBrandRepository brandRepository, ICategoryRepository categoryRepository)
+            IBrandRepository brandRepository, ICategoryRepository categoryRepository, IHostingEnvironment environment, IOptions<appSettings> appSettings)
         {
             _productImageRepository = productImageRepository;
             _productRepository = productRepository;
             _brandRepository = brandRepository;
             _categoryRepository = categoryRepository;
+            _appSettings = appSettings.Value;
+            _environment = environment;
             _serializerSettings = new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented
@@ -77,6 +85,34 @@ namespace OnlineStore.API.Controllers
             return new OkObjectResult(json);
         }
 
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            var data = await _brandRepository.GetAll();
+            var _result = Mapper.Map<IEnumerable<Brand>, IEnumerable<BrandViewModel>>(data);
+            var json = JsonConvert.SerializeObject(_result, _serializerSettings);
+            return new OkObjectResult(json);
+        }
+        [HttpPost("PostLogo")]
+        public async Task<IActionResult> PostLogo(IFormFile file)
+        {
+            var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+            var ext = "";
+            var filename = Guid.NewGuid().ToString();
+            if (file.Length > 0)
+            {
+                ext = Path.GetExtension(file.FileName);
+                using (var fileStream = new FileStream(Path.Combine(uploads, filename + ext), FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+            }
+            var pathUrl = uploads.Replace(_environment.WebRootPath, _appSettings.HostUrl);
+            Uri baseUrl = new Uri(pathUrl);
+            Uri returnUrl = new Uri(baseUrl, "uploads\\" + filename + ext);
+            string _result = returnUrl.ToString();
+            return new OkObjectResult(_result);
+        }
 
     }
 }

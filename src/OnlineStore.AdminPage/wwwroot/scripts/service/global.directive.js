@@ -47,5 +47,24 @@
             var Confirmed = (input && input == true) ? 'Confirmed' : 'Pending';
             return Confirmed;
         }
-    });
+    }).directive('fileUpload', [
+        '$parse', '$http', function ($parse, $http) {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                    var model = $parse(attrs.fileUpload);
+                    var url = attrs.fileUrl;
+                    var modelSetter = model.assign;
+                    element.bind('change', function () {
+                        var form = new FormData();                        
+                        form.append('file', element[0].files[0]);
+                        $http.post(url, form, { headers: { 'Content-Type': undefined } }).then(function (response) {                            
+                            modelSetter(scope, response.data);
+                        });
+                    });
+
+                }
+            }
+        }
+    ]);
 })();

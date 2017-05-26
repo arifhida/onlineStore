@@ -31,21 +31,32 @@
                                 <th>Motto</th>
                                 <th>Description</th>
                                 <th>Address</th>
-                                <th>Owner</th>
+                                <th>Owner (Username)</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="store in storeList">
                                 <td>{{ $index + (page*pageSize) + 1 }}</td>
-                                <td>{{ StoreName }}</td>
-                                <td>{{ Motto }}</td>
-                                <td>{{ Description }}</td>
-                                <td>{{ Address }}</td>
-                                <td>{{ UserName }}</td>
+                                <td>{{ store.StoreName }}</td>
+                                <td>{{ store.Motto }}</td>
+                                <td>{{ store.Description }}</td>
+                                <td>{{ store.Address }}</td>
+                                <td>{{ store.UserName }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" ui-sref="storeDetail({username:store.UserName, Id: store.Id})"><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-sm btn-danger" ng-click="delete(store);"><i class="fa fa-trash"></i></a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li ng-class="{'disabled': page == 0}"><a href="#" ng-click="prev()">&laquo;</a></li>
+                        <li><a>{{page + 1}} of {{totalPage}}</a></li>
+                        <li ng-class="{'disabled': page == totalPage- 1}"><a href="#" ng-click="next()">&raquo;</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

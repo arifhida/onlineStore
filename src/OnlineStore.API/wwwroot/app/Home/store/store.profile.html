@@ -1,0 +1,48 @@
+﻿<div ng-class="{ 'text-center alert': error, 'alert-success': status === 200, 'alert-danger': status !== 200 }" ng-if="error" ng-bind="error">{{error}}</div>
+<div class="panel panel-warning">
+    <div class="panel-body">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <div class="row">
+                    <label for="store" class="control-label">Store Logo</label>
+                    <img ng-src="{{logo}}" class="img-responsive img-thumbnail" />
+                </div>
+                <div class="form-group">
+                    <input type="file" class="form-control" file-upload="logo" file-url="api/Store/PostLogo" ng-disabled="status === 401" />
+                </div>
+            </div>
+            <div class="col-md-8">
+                <form name="formStore" role="form" ng-submit="Save()">
+                    <div class="form-group">
+                        <label for="fullName" class="control-label">Shop Name</label>
+                        <label class="form-control">{{shop.StoreName}}</label>                        
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName" class="control-label">Slogan</label>
+                        <input type="text" name="motto" id="motto" class="form-control" ng-model="shop.Motto" placeholder="Shop Slogan" />
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName" class="control-label">Description</label>
+                        <textarea rows="2" name="description" id="description" class="form-control" ng-model="shop.Description" placeholder="Description" />
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': formStore.address.$dirty && formStore.address.$error.required }">
+                        <label for="fullName" class="control-label">Address</label>
+                        <textarea rows="2" name="address" id="address" class="form-control" ng-model="shop.Address" placeholder="Address" required />
+                        <span ng-show="formStore.address.$dirty && formStore.address.$error.required" class="help-block">Address is required</span>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': formStore.postal.$dirty && formStore.postal.$error.required }">
+                        <label for="fullName" class="control-label">Postal Code</label>
+                        <input type="text" name="postal" id="postal" class="form-control" ng-model="shop.PostalCode" placeholder="Postal Code" required />
+                        <span ng-show="formStore.postal.$dirty && formStore.postal.$error.required" class="help-block">Postal Code is required</span>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" ng-disabled="formStore.$invalid ||loading">
+                            <span ng-hide="loading"><i class="fa fa-save"></i> Save</span>
+                            <span ng-show="loading"><i class="fa fa-spinner"></i> Saving...</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
