@@ -1,10 +1,10 @@
-﻿<div id="cart_items">
+﻿<!--<div id="cart_items">
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-12">
                 <a ui-sref="store.productNew" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
             </div>
-        </div>        
+        </div>
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>
@@ -19,7 +19,7 @@
                 <tbody>
                     <tr ng-repeat="product in productList">
                         <td>
-                            <a href=""><img ng-src="{{product.Image[0].ImageUrl}}" alt=""></a>
+                            <a href="#"><img ng-src="{{product.Image[0].ImageUrl}}" alt="{{product.SKU}}"></a>
                         </td>
                         <td>
                             <h4><a href="">{{product.ProductName}}</a></h4>
@@ -36,5 +36,48 @@
                 </tbody>
             </table>
         </div>
-    </div>    
+    </div>
+    
+</div>-->
+
+<div class="features_items">     
+    <h2 class="title text-center">Product List</h2>  
+    <div class="col-md-12">
+        <div class="col-md-2">
+            <a class="btn btn-primary" ui-sref="store.productNew"><i class="fa fa-plus-square"></i> Add Product</a>
+        </div>
+        <div class="col-md-10">
+            <div class="search_box pull-right">
+                <input type="text" placeholder="Search" />
+            </div>
+        </div>
+    </div> 
+    <div class="col-md-12">
+        &nbsp;
+    </div>  
+    <div class="col-sm-4" ng-repeat="product in productList">
+        <div class="product-image-wrapper">
+            <div class="single-products">
+                <div class="productinfo text-center">                    
+                    <img ng-src="{{product.Image[0].ImageUrl}}" alt="" />
+                    <h2>{{product.SKU}}</h2>
+                    <p>{{product.ProductName}}</p>
+                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-edit"></i>Edit</a>
+                </div>
+                <div class="product-overlay">
+                    <div class="overlay-content">
+                        <h2>{{product.UnitPrice}}</h2>
+                        <p>{{product.CategoryName}}</p>
+                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-anchor"></i>Preview</a>
+                    </div>
+                </div>
+            </div>
+            <div class="choose">
+                <ul class="nav nav-pills nav-justified">
+                    <li><a href="#" ui-sref="store.productEdit({Id:product.Id, SKU: product.SKU})"><i class="fa fa-edit"></i>Edit</a></li>
+                    <li><a href="#" ng-click="delete(product)"><i class="fa fa-trash"></i>Delete</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

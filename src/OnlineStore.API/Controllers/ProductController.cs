@@ -142,7 +142,7 @@ namespace OnlineStore.API.Controllers
             int currentPageSize = pageSize;
             var data = await _productRepository.FindByAsyncIncluding(x => (x.SKU.Contains(q) || x.ProductName.Contains(q) ||
                         x.ProductDescription.Contains(q) || x.Brand.BrandName.Contains(q)) && x.StoreId == _user.Store.Id,
-                        x => x.Brand, x => x.Category);
+                        x => x.Brand, x => x.Category, x=> x.Image);
             var totalData = data.Count();
             
             var totalPages = (int)Math.Ceiling((double)totalData / pageSize);
@@ -201,6 +201,29 @@ namespace OnlineStore.API.Controllers
                 Message = "SKU available"
             };
             var json = JsonConvert.SerializeObject(result, _serializerSettings);
+            return new OkObjectResult(json);
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete(long Id)
+        {
+            var _del = await _productRepository.GetSingleAsync(Id);
+            if(_del == null)
+            {
+                return new NotFoundResult();
+            }
+            _productRepository.Delete(_del);
+            await _productRepository.Commit();
+            return new NoContentResult();
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetbyId(long Id)
+        {
+            var product = await _productRepository.GetSingleAsync(x => x.Id == Id, x => x.Image, x => x.Brand, x => x.Category);
+
+            var _result = Mapper.Map<Product, ProductViewModel>(product);
+            var json = JsonConvert.SerializeObject(_result, _serializerSettings);
             return new OkObjectResult(json);
         }
 

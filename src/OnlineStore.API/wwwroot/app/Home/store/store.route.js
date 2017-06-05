@@ -16,11 +16,33 @@
             controller: 'storeProfileCtrl'
         }).state('store.productlist', {
             url: '/productList',
-            templateUrl: 'app/Home/store/store.productlist.html'
+            templateUrl: 'app/Home/store/store.productlist.html',
+            controller: 'storeProductListCtrl'
         }).state('store.productNew', {
             url: '/product.new',
             templateUrl: 'app/Home/store/store.product.new.html',
             controller: 'storeProductNewCtrl',
+            resolve: {
+                brandData: function ($http) {
+                    return $http.get('api/Brand/GetAll').then(function (response) {
+                        return response.data;
+                    });
+                },
+                categoryData: function ($http) {
+                    return $http.get('api/Category/GetCategory').then(function (response) {
+                        return response.data;
+                    });
+                },
+                storeData: function ($http) {
+                    return $http.get('api/Store/Current').then(function (response) {
+                        return response.data;
+                    });
+                }
+            }
+        }).state('store.productEdit', {
+            url: '/product/:Id/:SKU',
+            templateUrl: 'app/Home/store/store.product.edit.html',
+            controller: 'storeProductEditCtrl',
             resolve: {
                 brandData: function ($http) {
                     return $http.get('api/Brand/GetAll').then(function (response) {
