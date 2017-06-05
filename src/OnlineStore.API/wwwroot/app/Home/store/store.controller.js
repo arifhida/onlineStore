@@ -89,8 +89,8 @@
             $scope.getData();
         }
     ]).controller('storeProductNewCtrl', [
-        '$scope', '$http', '$ngConfirm', 'brandData', 'categoryData', 'storeData',
-    function ($scope, $http, $ngConfirm, brandData, categoryData, storeData) {
+        '$scope', '$http', '$ngConfirm', 'brandData', 'categoryData', 'storeData','$state',
+    function ($scope, $http, $ngConfirm, brandData, categoryData, storeData,$state) {
         $scope.remove = function (item) {
             $scope.images.splice($scope.images.indexOf(item), 1);
         }
@@ -125,6 +125,7 @@
             $http.post('api/Product/Add', $scope.product, { headers: { 'Content-Type': 'application/json' } })
                 .then(function (response) {
                     $ngConfirm('data is successfully saved.');
+                    $state.go('store.productlist');
                 },
                 function (err) {
 
@@ -132,8 +133,17 @@
         }
     }
     ]).controller('storeProductEditCtrl', [
-        '$scope', '$http', '$ngConfirm', 'brandData', 'categoryData', 'storeData','$stateParams',
-        function ($scope, $http, $ngConfirm, brandData, categoryData, storeData,$stateParams) {
+        '$scope', '$http', '$ngConfirm', 'brandData', 'categoryData', 'storeData','$stateParams','$state',
+        function ($scope, $http, $ngConfirm, brandData, categoryData, storeData, $stateParams, $state) {
+            $scope.remove = function (item) {
+                $http.delete('api/Product/Image/' + item.Id).then(function (response) {
+
+                }, function (err) {
+                    console.log(err);
+                });
+                $scope.images.splice($scope.images.indexOf(item), 1);
+
+            }
             $scope.StoreId = storeData.Id;
             $scope.autocomplete = false;
             $scope.categoryList = categoryData;
@@ -165,9 +175,20 @@
                 $http.get('api/Product/' + $scope.param).then(function (response) {
                     $scope.product = response.data;
                     $scope.query = response.data.CategoryName;
+                    $scope.images = response.data.Image;
                 });
             }
             $scope.getData();
+
+            $scope.Save = function () {
+                $http.put('api/Product/' + $scope.param, $scope.product, { headers: { 'Content-Type': 'application/json' } })
+                    .then(function (response) {
+                        $ngConfirm('data is successfully saved.');
+                        $state.go('store.productlist');
+                    }, function (err) {
+                        console.log(err.data);
+                    });
+            }
         }
     ]);
 })();

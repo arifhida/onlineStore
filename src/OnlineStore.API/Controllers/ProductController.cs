@@ -118,7 +118,11 @@ namespace OnlineStore.API.Controllers
                 return BadRequest();
             }
             var _prod = Mapper.Map<ProductViewModel, Product>(product);
-            _productRepository.Update(_prod, excludeProperties: "Store,StoreId");
+            foreach (var item in _prod.Image)
+            {
+                item.ProductId = _prod.Id;
+            }
+            _productRepository.Update(_prod, excludeProperties: "StoreId");
             await _productRepository.Commit();
             return new NoContentResult();
 
@@ -233,6 +237,28 @@ namespace OnlineStore.API.Controllers
             return View();
         }
 
+        [HttpDelete("Image/{Id}")]
+        public async Task<IActionResult> DeleteImage(long Id)
+        {
+            var _image = await _imageRepository.GetSingleAsync(x=> x.Id ==Id);
+            if(_image == null)
+            {
+                return new NotFoundResult();
+            }
+            var url = _image.ImageUrl;
+            _imageRepository.Delete(_image);
+            await _imageRepository.Commit();
+
+            Uri u = new Uri(url);
+            var path = u.LocalPath.Replace("/", "\\");
+            var localPath = string.Format("{0}{1}", _environment.WebRootPath, path);
+            
+            FileInfo file = new FileInfo(localPath);
+            await Task.Factory.StartNew(() => file.Delete());
+
+            return new NoContentResult();
+
+        }
 
     }
 }
