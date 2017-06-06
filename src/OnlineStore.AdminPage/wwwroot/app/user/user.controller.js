@@ -19,7 +19,6 @@
                     } else {
                         console.log(response);
                     }
-
                 });
             }
             $scope.Delete = function (user) {

@@ -9,7 +9,28 @@
     </div>
 </div>
 <div class="col-sm-9 padding-right">
-
+    <div class="features_items">
+        <h2 class="title text-center">Feature items</h2> 
+        <div class="col-sm-4" ng-repeat="product in productList">
+            <div class="product-image-wrapper">
+                <div class="single-products">
+                    <div class="productinfo text-center">
+                        <img ng-src="{{product.Image[0].ImageUrl}}" alt="" />
+                        <h2>{{product.SKU}}</h2>
+                        <p>{{product.ProductName}}</p>
+                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-anchor"></i>Add to Chart</a>
+                    </div>
+                    <div class="product-overlay">
+                        <div class="overlay-content">
+                            <h2>{{product.UnitPrice}}</h2>
+                            <p>{{product.CategoryName}}</p>
+                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-anchor"></i>Add to Chart</a>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/ng-template" id="category_node.html">

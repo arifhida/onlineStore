@@ -14,6 +14,7 @@ using OnlineStore.API.Models;
 using System.Security.Claims;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -58,6 +59,7 @@ namespace OnlineStore.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Get()
         {
             var pagination = Request.Headers["Pagination"];
@@ -71,9 +73,9 @@ namespace OnlineStore.API.Controllers
             int currentPage = page;
             int currentPageSize = pageSize;
 
-            var data = await _productRepository.FindByAsyncIncluding(x => x.SKU.Contains(q) || x.ProductName.Contains(q) ||
-                        x.ProductDescription.Contains(q) || x.Store.StoreName.Contains(q) || x.Brand.BrandName.Contains(q),
-                        x => x.Brand, x => x.Category);
+            var data = await _productRepository.FindByAsyncIncluding(x => x.SKU.ToLower().Contains(q) || x.ProductName.ToLower().Contains(q) ||
+                        x.ProductDescription.ToLower().Contains(q) || x.Store.StoreName.ToLower().Contains(q) || 
+                        x.Brand.BrandName.ToLower().Contains(q), x => x.Brand, x => x.Category, x=> x.Image);
             var totalData = data.Count();
             var totalPages = (int)Math.Ceiling((double)totalData / pageSize);
             Response.AddPagination(page, pageSize, totalData, totalPages);
@@ -144,8 +146,8 @@ namespace OnlineStore.API.Controllers
             var q = Request.Headers["q"].ToString();
             int currentPage = page;
             int currentPageSize = pageSize;
-            var data = await _productRepository.FindByAsyncIncluding(x => (x.SKU.Contains(q) || x.ProductName.Contains(q) ||
-                        x.ProductDescription.Contains(q) || x.Brand.BrandName.Contains(q)) && x.StoreId == _user.Store.Id,
+            var data = await _productRepository.FindByAsyncIncluding(x => (x.SKU.ToLower().Contains(q) || x.ProductName.ToLower().Contains(q) ||
+                        x.ProductDescription.ToLower().Contains(q) || x.Brand.BrandName.ToLower().Contains(q)) && x.StoreId == _user.Store.Id,
                         x => x.Brand, x => x.Category, x=> x.Image);
             var totalData = data.Count();
             

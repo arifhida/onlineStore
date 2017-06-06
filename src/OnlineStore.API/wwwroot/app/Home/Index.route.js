@@ -5,7 +5,7 @@
 "use strict";
 (function () {
     angular.module('app').config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-        $urlRouterProvider.otherwise("login");        
+        $urlRouterProvider.otherwise("main");        
         $locationProvider.html5Mode(true);
     });
 })();

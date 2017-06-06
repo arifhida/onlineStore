@@ -9,6 +9,6 @@
             url: "/",
             templateUrl: "app/Home/main/main.html",
             controller: "mainController"
-        });        
+        });
     });
 })();
