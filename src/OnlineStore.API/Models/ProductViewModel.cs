@@ -11,6 +11,7 @@ namespace OnlineStore.API.Models
     {
         public long Id { get; set; }
         public string SKU { get; set; }
+        public string StoreName { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public decimal UnitPrice { get; set; }

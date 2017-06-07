@@ -56,9 +56,9 @@
                     var url = attrs.fileUrl;
                     var modelSetter = model.assign;
                     element.bind('change', function () {
-                        var form = new FormData();                        
+                        var form = new FormData();
                         form.append('file', element[0].files[0]);
-                        $http.post(url, form, { headers: { 'Content-Type': undefined } }).then(function (response) {                            
+                        $http.post(url, form, { headers: { 'Content-Type': undefined } }).then(function (response) {
                             modelSetter(scope, response.data);
                         });
                     });

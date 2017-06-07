@@ -24,7 +24,8 @@ namespace OnlineStore.API.Models.Mapping
                 r => r.MapFrom(s => s.User.UserName));
             Mapper.CreateMap<Product, ProductViewModel>().ForMember(x => x.BrandName,
                 r => r.MapFrom(s => s.Brand.BrandName))
-                .ForMember(x => x.CategoryName, r => r.MapFrom(s => s.Category.CategoryName));
+                .ForMember(x => x.CategoryName, r => r.MapFrom(s => s.Category.CategoryName))
+                .ForMember(x => x.StoreName, r => r.MapFrom(e => e.Store.StoreName));
             Mapper.CreateMap<ProductImage, ProductImageViewModel>();
         }
     }

@@ -75,7 +75,35 @@ namespace OnlineStore.API.Controllers
 
             var data = await _productRepository.FindByAsyncIncluding(x => x.SKU.ToLower().Contains(q) || x.ProductName.ToLower().Contains(q) ||
                         x.ProductDescription.ToLower().Contains(q) || x.Store.StoreName.ToLower().Contains(q) || 
-                        x.Brand.BrandName.ToLower().Contains(q), x => x.Brand, x => x.Category, x=> x.Image);
+                        x.Brand.BrandName.ToLower().Contains(q), x => x.Brand, x => x.Category, x=> x.Image, x=> x.Store);
+            var totalData = data.Count();
+            var totalPages = (int)Math.Ceiling((double)totalData / pageSize);
+            Response.AddPagination(page, pageSize, totalData, totalPages);
+            data.Skip(page * pageSize).Take(pageSize);
+            var _result = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(data);
+            var json = JsonConvert.SerializeObject(_result, _serializerSettings);
+            return new OkObjectResult(json);
+
+        }
+        [HttpGet("Category/{Id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetbyCategory(long Id)
+        {
+            var pagination = Request.Headers["Pagination"];
+            if (!string.IsNullOrEmpty(pagination))
+            {
+                string[] vals = pagination.ToString().Split(',');
+                int.TryParse(vals[0], out page);
+                int.TryParse(vals[1], out pageSize);
+            }
+            var q = Request.Headers["q"].ToString();
+            int currentPage = page;
+            int currentPageSize = pageSize;
+
+            var data = await _productRepository.FindByAsyncIncluding(x => (x.SKU.ToLower().Contains(q) || x.ProductName.ToLower().Contains(q) ||
+                        x.ProductDescription.ToLower().Contains(q) || x.Store.StoreName.ToLower().Contains(q) ||
+                        x.Brand.BrandName.ToLower().Contains(q)) && x.CategoryId == Id, x => x.Brand, x => x.Category, x => x.Image, x => x.Store);
+            
             var totalData = data.Count();
             var totalPages = (int)Math.Ceiling((double)totalData / pageSize);
             Response.AddPagination(page, pageSize, totalData, totalPages);
