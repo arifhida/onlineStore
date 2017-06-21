@@ -3,8 +3,8 @@
 "use strict";
 (function () {
     angular.module('app').controller('mainController',
-        ['$scope', '$http', '$location', '$state', 'authenticate','PagerService',
-            function ($scope, $http, $location, $state, authenticate, PagerService) {
+        ['$scope', '$http', '$location', '$state', 'authenticate','PagerService','localStorageService',
+            function ($scope, $http, $location, $state, authenticate, PagerService, localStorageService) {
                 $scope.getCategory = function () {
                     $http.get('api/Category/GetAll').then(function (response) {
                         $scope.categoryList = response.data;
@@ -26,7 +26,11 @@
                         $scope.pages = PagerService.GetPager($scope.page, $scope.totalPage, $scope.pageSize).pages;
                     });
                 }
-
+                if (localStorage.getItem('cart')) {
+                    $scope.cart = localStorage.getItem('cart')
+                } else {
+                    $scope.cart = {};
+                }
                 $scope.navClick = function (item) {
                     $scope.categories = [];
                     $scope.category = item;
@@ -55,14 +59,16 @@
                     $scope.page = page;
                 }
                 function getCategory(node) {
-                    $scope.categories.push(node.Id);
-                    console.log(node);
+                    $scope.categories.push(node.Id);                    
                     if (node.Children) {
                         for (var i = 0; i < node.Children.length; i++) {
-
-                        }
-                        getCategory(node.Children);
+                            getCategory(node.Children[i]);
+                        }                       
                     }
+                }
+
+                $scope.addToChart = function (item) {
+
                 }
             
         }]);
