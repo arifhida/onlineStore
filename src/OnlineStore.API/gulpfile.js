@@ -25,7 +25,8 @@ var paths = {
     uitreejs: webroot + 'lib-npm/angular-ui-tree/*.min.js',
     uitreecss: webroot + 'lib-npm/angular-ui-tree/*.min.css',
     ngConfirmCss: webroot + 'lib-npm/confirm1/*.min.css',
-    ngConfirmJs: webroot + 'lib-npm/confirm1/*.min.js'
+    ngConfirmJs: webroot + 'lib-npm/confirm1/*.min.js',
+    ngCart: webroot + 'lib-npm/ngCart/*.min.js'
 };
 var ngroutepath = "./node_modules/";
 var libnpmPath = webroot + 'lib-npm/';
@@ -55,6 +56,8 @@ gulp.task('copy-npm', function () {
 gulp.task('copy-ngConfirm', function () {
     gulp.src(ngroutepath + 'angular-confirm1/dist/**.*')
     .pipe(gulp.dest(libnpmPath + 'confirm1/'));
+    gulp.src(ngroutepath + 'ngCart/dist/**.*')
+    .pipe(gulp.dest(libnpmPath + 'ngCart/'));
 });
 
 gulp.task('inject:Index', function () {
@@ -75,13 +78,14 @@ gulp.task('inject:Index', function () {
     var ngDirectiveSrc = gulp.src(paths.ngDirective, { read: false });
     var ngConfirmCssSrc = gulp.src(paths.ngConfirmCss, { read: false });
     var ngConfirmJsSrc = gulp.src(paths.ngConfirmJs, { read: false });
+    var ngCartSrc = gulp.src(paths.ngCart, { read: false });
     gulp.src(webroot + 'app/Home/Index.html')
         .pipe(wiredep({
             optional: 'configuration',
             goes: 'here',
             ignorePath: '..'
         }))
-        .pipe(inject(series(jquerySrc, bootjsSrc, ngSrc, npmSrc, ngStorage, uitreejsSrc, ngConfirmJsSrc, scriptSrc, ngDirectiveSrc, moduleSrc, controllerSrc, routeSrc), { ignorePath: '/wwwroot' }))
+        .pipe(inject(series(jquerySrc, bootjsSrc, ngSrc, npmSrc, ngStorage, uitreejsSrc, ngConfirmJsSrc, ngCartSrc, scriptSrc, ngDirectiveSrc, moduleSrc, controllerSrc, routeSrc), { ignorePath: '/wwwroot' }))
         .pipe(inject(series(styleSrc, bootstrapcssSrc, faSrc, uitreecssSrc, ngConfirmCssSrc), { ignorePath: '/wwwroot' }))
         .pipe(gulp.dest(webroot + 'app/Home/'));
 });

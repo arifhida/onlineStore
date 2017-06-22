@@ -3,8 +3,8 @@
 "use strict";
 (function () {
     angular.module('app').controller('mainController',
-        ['$scope', '$http', '$location', '$state', 'authenticate','PagerService','localStorageService',
-            function ($scope, $http, $location, $state, authenticate, PagerService, localStorageService) {
+        ['$scope', '$http', '$location', '$state', 'authenticate', 'PagerService', 'localStorageService', '$rootScope',
+            function ($scope, $http, $location, $state, authenticate, PagerService, localStorageService, $rootScope) {
                 $scope.getCategory = function () {
                     $http.get('api/Category/GetAll').then(function (response) {
                         $scope.categoryList = response.data;
@@ -27,9 +27,9 @@
                     });
                 }
                 if (localStorage.getItem('cart')) {
-                    $scope.cart = localStorage.getItem('cart')
+                    $rootScope.cart = JSON.parse(localStorage.getItem('cart'));
                 } else {
-                    $scope.cart = {};
+                    $rootScope.cart = [];
                 }
                 $scope.navClick = function (item) {
                     $scope.categories = [];
@@ -68,8 +68,31 @@
                 }
 
                 $scope.addToChart = function (item) {
-
+                    var product = {
+                        Id : item.Id,
+                        SKU: item.SKU,
+                        ProductName: item.ProductName,
+                        UnitPrice: item.UnitPrice,
+                        Quantity: 1,
+                        Image: item.Image[0].ImageUrl
+                    };
+                   
+                    var idx = getItems(item);                    
+                    if (idx !== null) {
+                        $rootScope.cart[idx].Quantity += 1;
+                    } else {
+                        $rootScope.cart.push(product);
+                    }                   
                 }
+
+                function getItems(item) {
+                    for (var i = 0; i < $rootScope.cart.length; i++) {
+                        if ($rootScope.cart[i].Id == item.Id) {
+                            return i;
+                        }
+                    }
+                    return null;
+                };
             
         }]);
 })();
