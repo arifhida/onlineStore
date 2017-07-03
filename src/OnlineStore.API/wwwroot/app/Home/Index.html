@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <base href="/" />
@@ -63,7 +63,7 @@
                             <ul class="nav navbar-nav">
                                 <li ng-show="isAuthenticated()"><a ui-sref="account.profile"><i class="fa fa-user"></i> Account</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>Cart</a></li>
+                                <li><a ui-sref="cart"><i class="fa fa-shopping-cart"></i>Cart</a></li>
                                 <li ng-hide="isAuthenticated()"><a ui-sref="login"><i class="fa fa-lock"></i> Login</a></li>
                                 <li ng-show="isAuthenticated()"><a href="#" ng-click="logout()"><i class="fa fa-sign-out"></i> logout</a></li>
                             </ul>
@@ -132,11 +132,13 @@
     <script src="/app/Home/store/store.directive.js"></script>
     <script src="/app/Home/index.controller.js"></script>
     <script src="/app/Home/account/account.controller.js"></script>
+    <script src="/app/Home/cart/cart.controller.js"></script>
     <script src="/app/Home/login/login.controller.js"></script>
     <script src="/app/Home/main/main.controller.js"></script>
     <script src="/app/Home/store/store.controller.js"></script>
     <script src="/app/Home/Index.route.js"></script>
     <script src="/app/Home/account/account.route.js"></script>
+    <script src="/app/Home/cart/cart.route.js"></script>
     <script src="/app/Home/login/login.route.js"></script>
     <script src="/app/Home/main/main.route.js"></script>
     <script src="/app/Home/store/store.route.js"></script>

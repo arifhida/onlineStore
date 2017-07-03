@@ -4,8 +4,8 @@
             <table class="table table-condensed">
                 <thead>
                     <tr class="cart_menu">
-                        <td class="image">Item</td>
-                        <td class="description"></td>
+                        <td>Item</td>
+                        <td class="description">Description</td>
                         <td class="price">Price</td>
                         <td class="quantity">Quantity</td>                        
                         <td></td>
@@ -14,11 +14,43 @@
                 <tbody>
                     <tr ng-repeat="item in cart">
                         <td>
-
+                            <a href="#"><img ng-src="{{item.Image}}" class="img-thumbnail" style="max-width:80px" alt=""></a>
+                        </td>
+                        <td class="description">
+                            <h4><a href="#">{{item.ProductName}}</a></h4>
+                            <p>SKU : {{item.SKU}}</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>{{item.Price | currency: "Rp."}}</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a class="cart_quantity_up" ng-click="addQty(item);"> + </a>
+                                <input class="cart_quantity_input" type="text" name="quantity" ng-model="item.Quantity" autocomplete="off" size="2">
+                                <a class="cart_quantity_down" ng-click="substractQty(item);"> - </a>
+                            </div>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" ng-click="delete(item);"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+</section>
+<section id="do_action">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 pull-right">
+                <div class="total_area">
+                    <ul>
+                        <li>Cart Sub Total <span>{{ SubTotal | currency: "Rp."}}</span></li>
+                        <li>Tax <span>{{Tax | currency: "Rp."}}</span></li>
+                        <li>Total <span>{{ Total | currency: "Rp."}}</span></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </section>

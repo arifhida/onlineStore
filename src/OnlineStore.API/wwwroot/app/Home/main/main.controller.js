@@ -3,8 +3,8 @@
 "use strict";
 (function () {
     angular.module('app').controller('mainController',
-        ['$scope', '$http', '$location', '$state', 'authenticate', 'PagerService', 'localStorageService', '$rootScope',
-            function ($scope, $http, $location, $state, authenticate, PagerService, localStorageService, $rootScope) {
+        ['$scope', '$http', '$location', '$state', 'authenticate', 'PagerService', 'localStorageService', '$rootScope', '$ngConfirm',
+            function ($scope, $http, $location, $state, authenticate, PagerService, localStorageService, $rootScope, $ngConfirm) {
                 $scope.getCategory = function () {
                     $http.get('api/Category/GetAll').then(function (response) {
                         $scope.categoryList = response.data;
@@ -69,21 +69,26 @@
 
                 $scope.addToChart = function (item) {
                     var product = {
-                        Id : item.Id,
+                        ProductId: item.Id,
                         SKU: item.SKU,
                         ProductName: item.ProductName,
-                        UnitPrice: item.UnitPrice,
+                        Price: item.UnitPrice,
                         Quantity: 1,
                         Image: item.Image[0].ImageUrl
                     };
-                   
-                    var idx = getItems(item);                    
+
+                    var idx = getItems(item);
                     if (idx !== null) {
                         $rootScope.cart[idx].Quantity += 1;
                     } else {
                         $rootScope.cart.push(product);
-                    }                   
-                }
+                    }
+                    if (localStorage.getItem('cart')) {
+                        localStorage.removeItem('cart');
+                    }
+                    localStorage.setItem('cart', JSON.stringify($rootScope.cart));
+                    $ngConfirm( item.SKU + ' is added to your cart');
+                };
 
                 function getItems(item) {
                     for (var i = 0; i < $rootScope.cart.length; i++) {
