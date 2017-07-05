@@ -28,9 +28,14 @@
                         <div class="overlay-content">
                             <h2>{{product.UnitPrice | currency: "Rp."}}</h2>
                             <p>{{product.CategoryName}}</p>                            
-                            <a href="#" ng-click="addToChart(product);" class="btn btn-default add-to-cart"><i class="fa fa-anchor"></i>Add to Chart</a>
+                            <a href="#" ng-click="addToChart(product);" class="btn btn-default add-to-cart"><i class="fa fa-anchor"></i>Add to Chart</a>                           
                         </div>
-                    </div>
+                    </div>                    
+                </div>
+                <div class="choose">
+                    <ul class="nav nav-pills nav-justified">
+                        <li><a ui-sref="itemDetail({Id:product.Id})"><i class="fa fa-plus-square"></i>Preview</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

@@ -44,7 +44,7 @@
                         $scope.pages = PagerService.GetPager($scope.page, $scope.totalPage, $scope.pageSize).pages;
                     });
                     console.log($scope.categories);
-                    
+
                 }
                 $scope.categories = [];
                 $scope.getData();
@@ -59,11 +59,11 @@
                     $scope.page = page;
                 }
                 function getCategory(node) {
-                    $scope.categories.push(node.Id);                    
+                    $scope.categories.push(node.Id);
                     if (node.Children) {
                         for (var i = 0; i < node.Children.length; i++) {
                             getCategory(node.Children[i]);
-                        }                       
+                        }
                     }
                 }
 
@@ -87,7 +87,7 @@
                         localStorage.removeItem('cart');
                     }
                     localStorage.setItem('cart', JSON.stringify($rootScope.cart));
-                    $ngConfirm( item.SKU + ' is added to your cart');
+                    $ngConfirm(item.SKU + ' is added to your cart');
                 };
 
                 function getItems(item) {
@@ -98,6 +98,27 @@
                     }
                     return null;
                 };
-            
-        }]);
+
+            }]).controller('detailCtrl', [
+                '$scope', '$http', '$location', '$state', 'authenticate','$stateParams',
+                 'localStorageService', '$rootScope', '$ngConfirm',
+            function ($scope, $http, $location, $state, authenticate,
+                $stateParams, localStorageService, $rootScope, $ngConfirm) {
+                $scope.param = $stateParams.Id;
+                $scope.getCategory = function () {
+                    $http.get('api/Category/GetAll').then(function (response) {
+                        $scope.categoryList = response.data;
+                    });
+                };
+                $scope.image = '';
+                $scope.getCategory();
+                $scope.getData = function (id) {
+                    $http.get('api/Product/' + id).then(function (response) {
+                        $scope.data = response.data;
+                        $scope.image = response.data.Image[0].ImageUrl;
+                    });
+                };
+                $scope.getData($scope.param);
+                
+            }]);
 })();

@@ -252,6 +252,7 @@ namespace OnlineStore.API.Controllers
         }
 
         [HttpGet("{Id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetbyId(long Id)
         {
             var product = await _productRepository.GetSingleAsync(x => x.Id == Id, x => x.Image, x => x.Brand, x => x.Category);

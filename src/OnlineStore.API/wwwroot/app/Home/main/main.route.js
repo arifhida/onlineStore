@@ -9,6 +9,10 @@
             url: "/",
             templateUrl: "app/Home/main/main.html",
             controller: "mainController"
+        }).state('itemDetail', {
+            url: "/:Id/Detail",
+            templateUrl: 'app/Home/main/item.detail.html',
+            controller: 'detailCtrl'
         });
     });
 })();
