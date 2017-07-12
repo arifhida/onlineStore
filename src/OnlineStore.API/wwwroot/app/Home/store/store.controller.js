@@ -112,7 +112,7 @@
                         && item.CategoryName.indexOf($scope.query) == -1);
         }
         $scope.condition = [
-             { Id: 0, Name: "Brand New" },
+             { Id: 0, Name: "New" },
             { Id: 1, Name: "Used" }
         ];
         $scope.Availability = [
@@ -163,7 +163,7 @@
                             && item.CategoryName.indexOf($scope.query) == -1);
             }
             $scope.condition = [
-                 { Id: 0, Name: "Brand New" },
+                 { Id: 0, Name: "New" },
                 { Id: 1, Name: "Used" }
             ];
             $scope.Availability = [

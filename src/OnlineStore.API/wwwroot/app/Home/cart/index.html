@@ -1,4 +1,4 @@
-﻿<section id="cart_items">
+﻿<section id="cart_items" ng-if="cart && cart.length > 0">
     <div class="container">
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
@@ -7,7 +7,7 @@
                         <td>Item</td>
                         <td class="description">Description</td>
                         <td class="price">Price</td>
-                        <td class="quantity">Quantity</td>                        
+                        <td class="quantity">Quantity</td>
                         <td></td>
                     </tr>
                 </thead>
@@ -39,10 +39,13 @@
         </div>
     </div>
 </section>
-<section id="do_action">
+<section id="do_action" ng-if="cart && cart.length > 0" class="col-md-4">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6 pull-right">
+        <div class="row">   
+            <div class="col-md-6">
+                <a ui-sref="main" class="btn btn-primary"> Continue Shopping</a>
+            </div>         
+            <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
                         <li>Cart Sub Total <span>{{ SubTotal | currency: "Rp."}}</span></li>
@@ -50,7 +53,12 @@
                         <li>Total <span>{{ Total | currency: "Rp."}}</span></li>
                     </ul>
                 </div>
-            </div>
+            </div>            
         </div>
     </div>
 </section>
+
+<div class="col-md-12" ng-if="!cart || cart.length == 0">
+    <div class="alert alert-info" role="alert">Your shopping cart is empty</div>
+    <a ui-sref="main" class="btn btn-primary"> Continue Shopping</a>
+</div>

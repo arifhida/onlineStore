@@ -22,12 +22,16 @@
                 <span>
                     <span>{{data.UnitPrice | currency: "Rp."}}</span>
                 </span>
-                <p><b>Brand:</b> E-SHOPPER</p>
+                <p><b>Condition:</b> {{data.Condition | condition }}</p>
+                <p><b>Brand:</b> {{data.BrandName}}</p>
             </div>
         </div>
     </div>
-    <div class="category-tab shop-details-tab">
-
+    <div class="panel panel-warning">
+        <div class="panel-heading">Detail</div>
+        <div class="panel-body">
+            <p>{{data.ProductDescription}}</p>
+        </div>
     </div>
 </div>
 <script type="text/ng-template" id="category_node.html">

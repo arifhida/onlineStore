@@ -86,9 +86,15 @@
             }
 
             return {
-                pages : pages
+                pages: pages
             }
         }
         return service;
+    }).filter('condition', function () {
+        return function (input) {
+            var condition = (input && input == 1) ? "Used" : "New";
+            console.log(input);
+            return condition;
+        };
     });
 })();
